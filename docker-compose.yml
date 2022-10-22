@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  nginx-certpod:
+    build: ./http
+    image: nginx-certpod-image
+    container_name: nginx-certpod-container
+    restart: always
+    environment:
+      - TZ=Asia/Tokyo
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./http/conf.d:/etc/nginx/conf.d
+      - ./http/letsencrypt:/etc/letsencrypt
+      - ./http/logs:/var/log/nginx
+      - ./http/www:/var/www
